@@ -19,3 +19,31 @@ Content-Type: application/json
      "username": "test777",
      "password": "asdf1234"
 }
+
+###
+
+GET http://localhost:3939/tasks/
+
+
+###
+
+POST http://localhost:3939/tasks/
+Content-Type: application/json
+
+{
+     "description": "ABER"
+}
+
+
+###
+
+PUT http://localhost:3939/tasks/647ae5dd459dca9483d7650c
+Content-Type: application/json
+
+{
+     "description": "como estas mi amigo?"
+}
+
+###
+
+DELETE http://localhost:3939/tasks/647aefbfbaa7c0250d54ecbc

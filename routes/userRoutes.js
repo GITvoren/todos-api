@@ -14,8 +14,11 @@ const {
 
 router.get('/', getUsers);
 
+// User Registration
 router.post('/register', registerUser);
 
+
+// User Login Authentication
 router.post('/login', loginUser)
 
 

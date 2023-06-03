@@ -13,12 +13,15 @@ app.use(express.urlencoded({extended: true}));
 const userRoutes = require('./routes/userRoutes.js');
 app.use('/users', userRoutes);
 
-// mongoDb connection
-mongoose.connect(process.env.MONGODB_URL)
-const db = mongoose.connection
+const taskRoutes = require('./routes/taskRoutes.js');
+app.use('/tasks', taskRoutes);
 
-db.on('error', err => console.error(err))
-db.once('open', () => console.log('Connected to MongoDB Database'))
+// mongoDb connection
+mongoose.connect(process.env.MONGODB_URL);
+const db = mongoose.connection;
+
+db.on('error', err => console.error(err));
+db.once('open', () => console.log('Connected to MongoDB Database'));
 
 
 
