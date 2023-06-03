@@ -1,0 +1,21 @@
+GET http://localhost:3939/users/
+
+###
+
+POST http://localhost:3939/users/register
+Content-Type: application/json
+
+{
+     "username": "test888",
+     "password": "asdf1234"
+}
+
+###
+
+POST http://localhost:3939/users/login
+Content-Type: application/json
+
+{
+     "username": "test777",
+     "password": "asdf1234"
+}
