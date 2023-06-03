@@ -31,20 +31,33 @@ const addTask = async (req, res) => {
 }
 
 const updateTask = async (req, res) => {
-     const task = await Task.findOne({"_id": req.params.id});  
-     task.description = req.body.description
+     try{
+          const task = await Task.findOne({"_id": req.params.id});  
+          task.description = req.body.description
 
-     const updatedTask = await task.save();
+          const updatedTask = await task.save();
 
-     res.status(200).send('Successfully Updated Task')
+          res.status(200).send('Successfully Updated Task');
+
+     }catch(err){
+          res.json(err.message);
+     }
+     
 }
 
 const deleteTask = async (req, res) => {
-     const task = await Task.findOne({'_id': req.params.id});
+     try{
+          const task = await Task.findOne({'_id': req.params.id});
 
-     await task.deleteOne();
+          await task.deleteOne();
 
-     res.status(200).send('Successfully Deleted Task')
+          res.status(200).send('Successfully Deleted Task');
+
+     }catch{
+
+          res.status(500).send();
+     }
+     
 }
 
 module.exports = {
