@@ -21,7 +21,7 @@ router.get('/', userAuth, getAllTasks);
 router.post('/', userAuth, addTask);
 
 // Update Task
-router.put('/:id', updateTask);
+router.patch('/:id', updateTask);
 
 // Delete Task
 router.delete('/:id', deleteTask);

@@ -39,7 +39,7 @@ Authorization: Bearer
 
 ###
 
-PUT http://localhost:3939/tasks/<insert id>
+PATCH http://localhost:3939/tasks/<insert id>
 Content-Type: application/json
 
 {
