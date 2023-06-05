@@ -26,4 +26,4 @@ db.once('open', () => console.log('Connected to MongoDB Database'));
 
 
 // server listen
-app.listen(port, () => {console.log('Connected to port: '+port)});
+app.listen(port, () => console.log('Connected to port: '+port));

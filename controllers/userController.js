@@ -1,6 +1,6 @@
 const User = require('../models/User.js');
 const bcrypt = require('bcrypt');
-
+const jwt = require('jsonwebtoken');
 
 
 
@@ -16,11 +16,9 @@ const getUsers = async (req, res) => {
 }
 
 const registerUser = async (req, res) => {
-     const user = await User.findOne({'username': req.body.username});
-     if(user !== null){
-          res.status(409).send("Username already exists");
-          return;
-     }
+     const user = await User.findOne({username: req.body.username});
+     if(user !== null) return res.status(409).json("Username already exists");
+     if(req.body.password.length < 8) return res.status(409).json("Password should atleast be a minimum if 8 characters");
 
      try{
           const user = new User({
@@ -29,7 +27,7 @@ const registerUser = async (req, res) => {
           });
 
           const newUser = await user.save();
-          res.status(201).send("Successfully Registered User");
+          res.status(201).json("Successfully Registered User");
 
      }catch(err){
           res.status(500).json({message: err.message});
@@ -38,24 +36,22 @@ const registerUser = async (req, res) => {
 }
 
 const loginUser = async (req, res) => {
-     const user = await User.findOne({'username': req.body.username});
-     if(user == null){
-          res.status(400).send("User Not Found");
-          return;
-     }
+     const user = await User.findOne({username: req.body.username});
+     if(user == null) return res.status(400).json("User Not Found");
 
      try{
-          const isPasswordMatch = await bcrypt.compare(req.body.password, user.password)
-          if(isPasswordMatch){
-               res.json({
-                    message: "Generate JWT Access Token",
-                    user: user
-               })
+          const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
+          if(!isPasswordCorrect) return res.sendStatus(400);
 
-          } else{
-               res.send('Not Allowed')
+          const dataPayload = {
+               _id: user._id,
+               username: user.username
           }
-          
+
+          const encodedToken = jwt.sign(dataPayload, process.env.JWT_SECRET);
+
+          res.json(encodedToken);
+
 
      }catch(err){
           res.status(500).json({message: err.message})

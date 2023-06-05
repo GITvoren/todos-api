@@ -1,10 +1,12 @@
 const Task = require("../models/Task.js");
 
 
+
 const getAllTasks = async (req, res) => {
      try{
           tasks = await Task.find({});
-          res.json(tasks);
+          const filteredTasks = tasks.filter(task => task.postedBy === req.user._id); //req.user is from auth middleware
+          res.json(filteredTasks);
      }catch{
           res.status(500).send();
      }
@@ -13,7 +15,8 @@ const getAllTasks = async (req, res) => {
 
 const addTask = async (req, res) => {
      const task = new Task({
-          description: req.body.description
+          description: req.body.description,
+          postedBy: req.user._id //req.user is from auth middleware
      });
 
      try{
@@ -47,7 +50,7 @@ const updateTask = async (req, res) => {
 
 const deleteTask = async (req, res) => {
      try{
-          const task = await Task.findOne({'_id': req.params.id});
+          const task = await Task.findOne({_id: req.params.id});
 
           await task.deleteOne();
 

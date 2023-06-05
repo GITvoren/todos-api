@@ -5,10 +5,10 @@ const taskSchema = new mongoose.Schema({
           type: String,
           required: [true, "Description is required"]
      },
-     datePosted: {
-          type: Date,
-          default: Date.now
+     postedBy: {
+          type: String,
+          required: true
      }
-})
+}, {timestamps: true})
 
 module.exports = mongoose.model("Task", taskSchema);

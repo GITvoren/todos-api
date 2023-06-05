@@ -6,8 +6,8 @@ POST http://localhost:3939/users/register
 Content-Type: application/json
 
 {
-     "username": "test888",
-     "password": "asdf1234"
+     "username": "",
+     "password": ""
 }
 
 ###
@@ -16,34 +16,36 @@ POST http://localhost:3939/users/login
 Content-Type: application/json
 
 {
-     "username": "test777",
-     "password": "asdf1234"
+     "username": "",
+     "password": ""
 }
 
 ###
 
 GET http://localhost:3939/tasks/
+Authorization: Bearer 
 
 
 ###
 
 POST http://localhost:3939/tasks/
 Content-Type: application/json
+Authorization: Bearer 
 
 {
-     "description": "ABER"
+     "description": ""
 }
 
 
 ###
 
-PUT http://localhost:3939/tasks/647ae5dd459dca9483d7650c
+PUT http://localhost:3939/tasks/<insert id>
 Content-Type: application/json
 
 {
-     "description": "como estas mi amigo?"
+     "description": ""
 }
 
 ###
 
-DELETE http://localhost:3939/tasks/647aefbfbaa7c0250d54ecbc
+DELETE http://localhost:3939/tasks/<insert id>
