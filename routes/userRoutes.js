@@ -3,7 +3,7 @@ const router = express.Router();
 const userController = require('../controllers/userController.js');
 const middlewares = require('../middlewares/middlewares.js');
 
-const { findUser } = middlewares;
+// const { findUser } = middlewares;
 
 const {
      getUsers,
