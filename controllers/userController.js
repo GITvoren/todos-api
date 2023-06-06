@@ -4,10 +4,10 @@ const jwt = require('jsonwebtoken');
 
 
 
-const getUsers = async (req, res) => {
+const getUser = async (req, res) => {
      try{
-          const users = await User.find({});
-          res.json(users);
+          const user = await User.findOne({username: req.user.username});
+          res.json(user);
 
      } catch(err){
           res.status(500).json({message: err.message});
@@ -29,8 +29,8 @@ const registerUser = async (req, res) => {
           const newUser = await user.save();
           res.status(201).json("Successfully Registered User");
 
-     }catch(err){
-          res.status(500).json({message: err.message});
+     }catch{
+          res.status(409).json("Username must have atleast 6 characters");
      }
     
 }
@@ -41,7 +41,7 @@ const loginUser = async (req, res) => {
 
      try{
           const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
-          if(!isPasswordCorrect) return res.sendStatus(400);
+          if(!isPasswordCorrect) return res.status(400).json("Invalid Password");
 
           const dataPayload = {
                _id: user._id,
@@ -61,7 +61,7 @@ const loginUser = async (req, res) => {
 
 
 module.exports = {
-     getUsers,
+     getUser,
      registerUser,
      loginUser
 }

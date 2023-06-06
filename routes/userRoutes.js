@@ -2,17 +2,20 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController.js');
 const middlewares = require('../middlewares/middlewares.js');
+const auth = require('../middlewares/auth.js')
 
 // const { findUser } = middlewares;
 
+const {userAuth} = auth
+
 const {
-     getUsers,
+     getUser,
      registerUser,
      loginUser
 } = userController;
 
-
-router.get('/', getUsers);
+// Get User Details using Encoded jwt Token
+router.get('/details', userAuth, getUser);
 
 // User Registration
 router.post('/register', registerUser);
