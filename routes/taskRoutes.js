@@ -9,7 +9,8 @@ const {
 getAllTasks,
 addTask,
 updateTask,
-deleteTask
+deleteTask,
+completeTask
 
 } = taskController;
 
@@ -22,6 +23,9 @@ router.post('/', userAuth, addTask);
 
 // Update Task
 router.patch('/:id', updateTask);
+
+// Complete Task
+router.patch('/:id/complete', completeTask)
 
 // Delete Task
 router.delete('/:id', deleteTask);

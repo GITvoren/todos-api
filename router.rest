@@ -48,5 +48,8 @@ Content-Type: application/json
 }
 
 ###
+PATCH http://localhost:3939/tasks/647ff274c9247b673875a7b1/complete
+
+###
 
 DELETE http://localhost:3939/tasks/<insert id>

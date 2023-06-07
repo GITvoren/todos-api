@@ -8,6 +8,10 @@ const taskSchema = new mongoose.Schema({
      postedBy: {
           type: String,
           required: true
+     },
+     completed: {
+          type: Boolean,
+          default: false
      }
 }, {timestamps: true})
 

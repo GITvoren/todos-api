@@ -8,7 +8,7 @@ const getAllTasks = async (req, res) => {
           const filteredTasks = tasks.filter(task => task.postedBy === req.user._id); //req.user is from auth middleware
           res.json(filteredTasks);
      }catch{
-          res.status(500).send();
+          res.status(500).json();
      }
 }
 
@@ -40,7 +40,23 @@ const updateTask = async (req, res) => {
 
           const updatedTask = await task.save();
 
-          res.status(200).send('Successfully Updated Task');
+          res.status(200).json('Successfully Updated Task');
+
+     }catch(err){
+          res.json(err.message);
+     }
+     
+}
+
+const completeTask = async (req, res) => {
+     try{
+          const task = await Task.findOne({"_id": req.params.id}); 
+
+          task.completed = !task.completed
+
+          const updatedTask = await task.save();
+
+          res.status(200).json('Successfully Updated Task');
 
      }catch(err){
           res.json(err.message);
@@ -54,11 +70,11 @@ const deleteTask = async (req, res) => {
 
           await task.deleteOne();
 
-          res.status(200).send('Successfully Deleted Task');
+          res.status(200).json('Successfully Deleted Task');
 
      }catch{
 
-          res.status(500).send();
+          res.status(500).json();
      }
      
 }
@@ -67,5 +83,6 @@ module.exports = {
      getAllTasks,
      addTask,
      updateTask,
-     deleteTask
+     deleteTask,
+     completeTask
 }
