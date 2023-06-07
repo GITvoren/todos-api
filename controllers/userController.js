@@ -18,7 +18,7 @@ const getUser = async (req, res) => {
 const registerUser = async (req, res) => {
      const user = await User.findOne({username: req.body.username});
      if(user !== null) return res.status(409).json("Username already exists");
-     if(req.body.password.length < 8) return res.status(409).json("Password should atleast be a minimum if 8 characters");
+     if(req.body.password.length < 8) return res.status(409).json("Password should atleast be a minimum of 8 characters");
 
      try{
           const user = new User({
