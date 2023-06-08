@@ -31,7 +31,10 @@ app.use('/tasks', taskRoutes);
 
 const connectDB = async () => {
      try{
-          const conn = await mongoose.connect(process.env.MONGODB_URL);
+          const conn = await mongoose.connect(process.env.MONGODB_URL, {
+               useNewUrlParser: true,
+               useUnifiedTopology: true
+          });
           console.log(`MongoDB Connected: ${conn.connection.host}`)
 
      }catch(err){
@@ -43,5 +46,8 @@ const connectDB = async () => {
 
 // server listen
 
-connectDB()
-.then(() => app.listen(port, () => console.log('Connected to port: '+port)))
+connectDB().then(() => {
+    app.listen(port, () => {
+        console.log("listening for requests");
+    })
+})
