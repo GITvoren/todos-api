@@ -24,14 +24,24 @@ app.use('/users', userRoutes);
 const taskRoutes = require('./routes/taskRoutes.js');
 app.use('/tasks', taskRoutes);
 
-// mongoDb connection
-mongoose.connect(process.env.MONGODB_URL);
-const db = mongoose.connection;
 
-db.on('error', err => console.error(err));
-db.once('open', () => console.log('Connected to MongoDB Database'));
+// cyclic.sh(WebHostingServer) FORMAT: -> Connect to DB before listening to PORT
 
+// mongoDB connection
+
+const connectDB = async () => {
+     try{
+          const conn = await mongoose.connect(process.env.MONGODB_URL);
+          console.log(`MongoDB Connected: ${conn.connection.host}`)
+
+     }catch(err){
+          console.log(err);
+          process.exit(1);
+     }
+}
 
 
 // server listen
-app.listen(port, () => console.log('Connected to port: '+port));
+
+connectDB()
+.then(() => app.listen(port, () => console.log('Connected to port: '+port)))
